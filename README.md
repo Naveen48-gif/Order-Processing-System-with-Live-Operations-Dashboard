@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Order Processing System with Live Operations Dashboard
 
 Concurrent order processing with inventory-safe locking, a broker-backed dead-letter queue, and a
@@ -64,3 +65,7 @@ subscribing to `ws://localhost:8080/ws` for live updates. Configure `VITE_API_BA
   DB schema) plus the live phase status board both agents update.
 - `frontend/src/api.js` — REST calls + STOMP-over-WebSocket subscription for the live dashboard.
 
+=======
+# Order-Processing-System-with-Live-Operations-Dashboard
+Concurrent e-commerce order processing system using Java, Spring Boot, and thread pools, with locking to prevent overselling and negative inventory. Includes failed-order handling, bounded retries, dead-letter queue, persistent PostgreSQL/MySQL or AWS RDS storage, and a React/Angular live dashboard for order status and inventory updates.
+>>>>>>> e95950f8d718182f09d8bb12f857ac82e2a2277b
