@@ -302,7 +302,8 @@ Through this project, we explored:
 
 ## Team Project
 
-This project was developed as a student team project to understand how backend systems handle **concurrent requests, inventory consistency, asynchronous processing, and real-time monitoring**.
+This project was developed as a student team project to understand how backend systems handle **concurrent requests, inventory consistency, asynchronous processing, and real-time monitoring** for Acentra Hackathon
+.
 
 ---
 
