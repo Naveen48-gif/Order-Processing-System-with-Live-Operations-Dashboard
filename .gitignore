@@ -1,0 +1,41 @@
+# ---- Secrets / local configuration ----
+.env
+*.env.local
+
+# ---- Java / Maven ----
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+*.class
+*.jar
+*.war
+hs_err_pid*
+replay_pid*
+
+# ---- IDE ----
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+nbproject/
+
+# ---- Node / Vite ----
+node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Logs / OS / local data ----
+*.log
+logs/
+*.pid
+.DS_Store
+Thumbs.db
+db/*.sqlite
+docker/volumes/

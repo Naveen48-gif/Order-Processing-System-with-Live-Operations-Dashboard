@@ -1,0 +1,46 @@
+# Automated-test profile: real SQL engine, real row locks, zero infrastructure.
+# H2 in PostgreSQL compatibility mode is used so the full suite (including the
+# "100 concurrent orders against 10 units of stock" test) runs on any machine,
+# while PostgreSQL/MySQL remain the runtime databases.
+spring:
+  datasource:
+    url: jdbc:h2:mem:orderdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;DB_CLOSE_DELAY=-1;LOCK_TIMEOUT=10000
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 24
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
+
+logging:
+  level:
+    com.ordermanagement: INFO
+
+management:
+  health:
+    # No broker in this profile: without this the RabbitMQ health indicator probes a broker that is not
+    # there and reports the whole application DOWN (HTTP 503) even though order processing is healthy.
+    rabbit:
+      enabled: false
+
+order:
+  seed:
+    # The suite creates exactly the fixtures each test needs, so the demo catalogue stays out of it.
+    enabled: false
+  ops:
+    fault-injection:
+      # Enabled for the automated suite so the retry -> DLQ -> replay ladder is asserted over the real
+      # API rather than only through service calls. Off by default everywhere else.
+      enabled: true
+  processing:
+    core-pool-size: 10
+    max-pool-size: 10
+    queue-capacity: 100
+  messaging:
+    transport: in-process

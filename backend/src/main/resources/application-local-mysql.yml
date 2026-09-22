@@ -1,0 +1,27 @@
+# Local profile for machines with a MySQL 8 server but no Docker/PostgreSQL.
+# Activate with: --spring.profiles.active=local-mysql  (or SPRING_PROFILES_ACTIVE=local-mysql)
+# The concurrency semantics are identical: the pessimistic inventory lock becomes `SELECT ... FOR UPDATE`
+# on InnoDB, exactly as it does on PostgreSQL.
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/orderdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&rewriteBatchedStatements=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+order:
+  messaging:
+    # No broker binary available by default on such machines.
+    transport: ${ORDER_MESSAGING_TRANSPORT:in-process}
+
+management:
+  health:
+    # Only relevant when the RabbitMQ transport is selected (see the note in application-test.yml).
+    rabbit:
+      enabled: false
